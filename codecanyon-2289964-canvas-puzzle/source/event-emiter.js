@@ -158,9 +158,9 @@ EventEmitter.prototype.addListener = function (type, listener) {
 
   return this;
 };
-
+//给 EventEmitter的 addListener 添加 subscribe 和 on 别名
 EventEmitter.prototype.on = EventEmitter.prototype.subscribe = EventEmitter.prototype.addListener;
-
+//添加once事件添加监听 (type:string,listener:func)监听只会运行一次
 EventEmitter.prototype.once = function (type, listener) {
   if ("function" !== typeof listener) {
     throw new Error(".once only takes instances of Function");
