@@ -178,7 +178,7 @@ EventEmitter.prototype.once = function (type, listener) {
 
   return this;
 };
-
+//删除某个type的listener 如果删光了，就把event对象删掉
 EventEmitter.prototype.removeListener = function (type, listener) {
   if ("function" !== typeof listener) {
     throw new Error("removeListener only takes instances of Function");
@@ -212,9 +212,9 @@ EventEmitter.prototype.removeListener = function (type, listener) {
 
   return this;
 };
-
+// 常见别名unsubscribe
 EventEmitter.prototype.unsubscribe = EventEmitter.prototype.removeListener;
-
+// 删除listeners，填了type就删type的，如果没有就全干掉
 EventEmitter.prototype.removeAllListeners = function (type) {
   if (arguments.length === 0) {
     this._events = {};
@@ -226,7 +226,7 @@ EventEmitter.prototype.removeAllListeners = function (type) {
     this._events[type] = null;
   return this;
 };
-
+// 返回某种类型的listener,并且初始化._events对象
 EventEmitter.prototype.listeners = function (type) {
   if (!this._events)
     this._events = {};
@@ -243,6 +243,7 @@ EventEmitter.prototype.listeners = function (type) {
  * 
  * @param {object} obj The object to be augmented
  */
+// EventEmitter的混入方法，可以给传入的对象调用EventEmitter方法的权利
 EventEmitter.mixin = function (obj) {
   for (var method in EventEmitter.prototype) {
     if (!obj.prototype[method]) {
